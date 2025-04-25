@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 const About = () => {
 	return (
@@ -14,40 +14,32 @@ const About = () => {
 						alt="About Influencers Club"
 						width={600}
 						height={400}
-						className="shadow-md"
+						className="shadow-md "
 					/>
 				</div>
 
 				{/* Text content */}
 				<div className="md:w-1/2 text-center md:text-left">
 					<h2 className="text-4xl font-bold text-gray-800 mb-4">
-						About <span className="text-red-500">Influencers Club</span>
+						About Influencers Club
 					</h2>
 					<p className="text-lg text-gray-600 mb-6">
-						We are a vibrant community built for creators and brands to thrive
-						together. Whether you&apos;re a rising content star or a brand
-						hunting for authentic partnerships — we make the magic happen.
+						We&apos;re a community where creators and brands work together to
+						make meaningful connections and grow.
 					</p>
 
-					<ul className="space-y-3 text-left">
-						<li className="flex items-start gap-2 text-gray-700">
-							<FaCheckCircle className="text-red-500 mt-1" />
-							<span>
-								Connect with top-tier brands & influencers from diverse niches
-							</span>
+					<ul className="space-y-4 text-left">
+						<li className="flex items-start gap-3 text-gray-700">
+							<FaArrowRight className="text-red-500 mt-1" />
+							<span>Partner with top brands and influencers.</span>
 						</li>
-						<li className="flex items-start gap-2 text-gray-700">
-							<FaCheckCircle className="text-red-500 mt-1" />
-							<span>
-								Get exclusive access to campaigns, events, and collaboration
-								tools
-							</span>
+						<li className="flex items-start gap-3 text-gray-700">
+							<FaArrowRight className="text-red-500 mt-1" />
+							<span>Get access to exclusive campaigns and events.</span>
 						</li>
-						<li className="flex items-start gap-2 text-gray-700">
-							<FaCheckCircle className="text-red-500 mt-1" />
-							<span>
-								Boost your reach, reputation, and revenue — all in one place
-							</span>
+						<li className="flex items-start gap-3 text-gray-700">
+							<FaArrowRight className="text-red-500 mt-1" />
+							<span>Grow your visibility and revenue.</span>
 						</li>
 					</ul>
 				</div>
