@@ -6,7 +6,7 @@ const JoinNow = () => {
 			id="join"
 			className="py-20 px-4 bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white text-center">
 			<h2 className="text-4xl font-bold mb-4">
-				Join the Influencers Club Today 🚀
+				Join the Influencers Club Today
 			</h2>
 			<p className="text-lg max-w-2xl mx-auto">
 				Whether you&apos;re a creator ready to shine or a brand seeking
@@ -18,13 +18,13 @@ const JoinNow = () => {
 				<Link
 					href="/join/influencer"
 					className="bg-white text-red-600 hover:bg-red-600 hover:text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 shadow-md hover:shadow-lg animate-pulse hover:animate-none">
-					✨ Join as Influencer
+					Join as Influencer
 				</Link>
 
 				<Link
 					href="/join/brand"
 					className="bg-white text-red-600 hover:bg-red-600 hover:text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 shadow-md hover:shadow-lg animate-pulse hover:animate-none">
-					🤝 Join as Brand
+					Join as Brand
 				</Link>
 			</div>
 

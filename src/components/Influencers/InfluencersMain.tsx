@@ -1,30 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { client } from "../../../studio/lib/sanity";
 import Link from "next/link";
-import { FaInstagram, FaTwitter, FaFacebookF, FaYoutube } from "react-icons/fa";
+import Image from "next/image";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { sanity } from "../../../sanity/lib/sanity"
-import { urlFor } from "../../../sanity/lib/sanity-utils"
-import { Influencer } from "../../../sanity/types/influencertype"
 
-const categories = ["All", "Fashion", "Tech", "Travel", "Fitness"];
+type Influencer = {
+	_id: string;
+	name: string;
+	tagline: string;
+	handle: string;
+	followers: string;
+	category: string;
+	image: { asset: { url: string } };
+	social: {
+		instagram?: string;
+		twitter?: string;
+		facebook?: string;
+		youtube?: string;
+	};
+};
 
-export default function InfluencersPage() {
-	const [search, setSearch] = useState("");
-	const [category, setCategory] = useState("All");
-	const [influencers, setInfluencers] = useState<Influencer[]>([]);
+type InfluencersPageProps = {
+	influencers: Influencer[];
+};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const data = await sanity.fetch(`*[_type == "influencer"]`);
-			setInfluencers(data);
-		};
-		fetchData();
-	}, []);
+const InfluencersPage = ({ influencers }: InfluencersPageProps) => {
+	const [search, setSearch] = useState<string>("");
+	const [category, setCategory] = useState<string>("All");
+	const categories = ["All", "Fashion", "Tech", "Food", "Travel"];
 
-	const filteredInfluencers = influencers.filter((influencer) => {
+	// Ensure influencers are available before filtering
+	const filteredInfluencers = influencers?.filter((influencer) => {
 		const matchesSearch = influencer.name
 			.toLowerCase()
 			.includes(search.toLowerCase());
@@ -54,8 +63,7 @@ export default function InfluencersPage() {
 				/>
 			</motion.div>
 
-			{/* Category Filters */}
-			<div className="flex flex-wrap gap-3 mb-8">
+			<div className="flex flex-wrap gap-2 mb-6">
 				{categories.map((cat) => (
 					<motion.button
 						key={cat}
@@ -71,9 +79,8 @@ export default function InfluencersPage() {
 				))}
 			</div>
 
-			{/* Influencer Grid */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-				{filteredInfluencers.map((influencer) => (
+				{filteredInfluencers?.map((influencer) => (
 					<motion.div
 						key={influencer._id}
 						className="bg-red-200 shadow-md rounded-xl overflow-hidden text-center p-5 hover:shadow-lg transition"
@@ -82,14 +89,14 @@ export default function InfluencersPage() {
 						{/* Image */}
 						<div className="w-24 h-24 mx-auto mb-4 relative rounded-full overflow-hidden">
 							<Image
-								src={urlFor(influencer.image).url()}
+								src={influencer.image.asset.url}
 								alt={influencer.name}
-								fill
+								width={100}
+								height={100}
 								className="object-cover"
 							/>
 						</div>
 
-						{/* Name + Info */}
 						<h3 className="text-lg font-bold text-gray-800">
 							{influencer.name}
 						</h3>
@@ -97,7 +104,6 @@ export default function InfluencersPage() {
 						<p className="text-sm text-red-600">{influencer.handle}</p>
 						<p className="text-sm text-gray-500">{influencer.followers}</p>
 
-						{/* Social Links */}
 						<div className="flex justify-center gap-4 mt-3 text-xl">
 							{influencer.social.instagram && (
 								<Link
@@ -137,4 +143,39 @@ export default function InfluencersPage() {
 			</div>
 		</main>
 	);
+};
+
+export default InfluencersPage;
+
+export async function getStaticProps() {
+	const query = `
+	  *[_type == "influencer"]{
+		_id,
+		name,
+		tagline,
+		handle,
+		followers,
+		category,
+		image {
+		  asset -> {
+			url
+		  }
+		},
+		social {
+		  instagram,
+		  twitter,
+		  facebook,
+		  youtube
+		}
+	  }
+	`;
+
+	const influencers = await client.fetch(query);
+
+	return {
+		props: {
+			influencers,
+		},
+		revalidate: 60,
+	};
 }

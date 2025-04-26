@@ -5,9 +5,9 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'Influencers_club',
+  title: 'influencers club',
 
-  projectId: 'p6imf0ec',
+  projectId: 'blc2ea6p',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

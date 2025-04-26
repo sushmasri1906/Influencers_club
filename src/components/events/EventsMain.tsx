@@ -45,7 +45,7 @@ const allEvents = [
 ];
 
 // 🔁 Reusable component for event sections
-const EventSection = ({ title, events }) => (
+const EventSection: React.FC<{ title: string; events: { title: string; description: string; date: string; location: string; phoneNumber: string; price: string; offerPrice: string; }[] }> = ({ title, events }) => (
 	<section className="mt-12">
 		<h3 className="text-3xl font-semibold text-gray-800 text-center">
 			{title}
