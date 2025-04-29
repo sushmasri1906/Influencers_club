@@ -180,10 +180,38 @@
 // 	};
 // }
 
+import { urlFor, client } from "@/sanity/lib/client";
+import { InfluencerType } from "@/sanity/lib/InfluncerType";
+import Image from "next/image";
 import React from "react";
 
-const InfluencersMain = () => {
-	return <div>InfluencersMain</div>;
+const InfluencersMain = async () => {
+	const query = `*[_type == "influncer"]`;
+	const influencers = await client.fetch(query);
+	console.log(influencers);
+	return (
+		<div className="mt-[120px]">
+			InfluencersMain
+			{influencers.length > 0 ? (
+				<div>
+					{influencers.map((influencer: InfluencerType) => (
+						<div key={influencer._id}>
+							{influencer.name}
+							<Image
+								src={urlFor(influencer.image).url()}
+								alt={influencer.name}
+								className="w-40 h-auto"
+								width={160}
+								height={160}
+							/>
+						</div>
+					))}
+				</div>
+			) : (
+				<div></div>
+			)}
+		</div>
+	);
 };
 
 export default InfluencersMain;
