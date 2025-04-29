@@ -3,7 +3,8 @@ import InfluencersMain from "@/components/Influencers/InfluencersMain";
 function InfluencersHome() {
 	return (
 		<>
-			<InfluencersMain influencers={[]} />
+			{/* <InfluencersMain influencers={[]} /> */}
+			<InfluencersMain />
 		</>
 	);
 }
